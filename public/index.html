@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>University Table Website Connection</title>
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      margin: 0;
+      padding: 2rem;
+      background: linear-gradient(120deg, #f2efe5, #e4efe7);
+      color: #1f2937;
+    }
+
+    .card {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 0.55rem 0.9rem;
+      background: #0b6e4f;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: #095840;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      display: block;
+    }
+
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 0.5rem;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f9fafb;
+    }
+
+    #status {
+      margin-bottom: 1rem;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <section class="card">
+    <h1>University Table Viewer</h1>
+    <p id="status">Loading data...</p>
+
+    <div class="controls">
+      <button id="loadBtn">Reload rows</button>
+    </div>
+
+    <div id="tableContainer"></div>
+  </section>
+
+  <script>
+    const apiBase = window.location.origin;
+
+    async function loadRows() {
+      const status = document.getElementById("status");
+      const container = document.getElementById("tableContainer");
+      status.textContent = "Loading data...";
+
+      try {
+        const response = await fetch(`${apiBase}/api/university-table-corrected?limit=20&offset=0`);
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+
+        const payload = await response.json();
+        const rows = payload.rows || [];
+
+        if (rows.length === 0) {
+          status.textContent = "No rows found in university_table_corrected.";
+          container.innerHTML = "";
+          return;
+        }
+
+        const columns = Object.keys(rows[0]);
+        const head = `<tr>${columns.map((c) => `<th>${c}</th>`).join("")}</tr>`;
+        const body = rows
+          .map((row) => `<tr>${columns.map((c) => `<td>${row[c] ?? ""}</td>`).join("")}</tr>`)
+          .join("");
+
+        container.innerHTML = `<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
+        status.textContent = `Showing ${rows.length} of ${payload.total} rows from university_table_corrected.`;
+      } catch (error) {
+        status.textContent = `Error: ${error.message}`;
+        container.innerHTML = "";
+      }
+    }
+
+    document.getElementById("loadBtn").addEventListener("click", loadRows);
+    loadRows();
+  </script>
+</body>
+</html>

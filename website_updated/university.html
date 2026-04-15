@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Университет</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header-inner">
+    <div class="logo">UniFinder</div>
+    <nav class="nav">
+      <a href="index.html">Главная</a>
+      <a href="#">Университеты</a>
+      <a href="#">Новости</a>
+      <a href="#">О нас</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="uni-hero">
+  <div class="uni-overlay"></div>
+
+  <div class="container uni-hero-content">
+    <div>
+      <h1 id="uniName">Название университета</h1>
+      <p id="uniCity">Город</p>
+
+      <div class="uni-tags">
+        <span>Один из ведущих университетов страны</span>
+        <span>Современное образование</span>
+        <span>Высокий уровень трудоустройства</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<section class="uni-main">
+  <div class="container uni-grid">
+
+    <!-- LEFT -->
+    <div class="uni-left">
+
+      <!-- CARD 1 -->
+      <div class="uni-card-block">
+        <h3>Поступление (ЕНТ)</h3>
+        <select id="programSelectEnt">
+          <option value="">Выберите направление</option>
+        </select>
+        <p id="entMinScore">Минимальный балл: Нет данных</p>
+        <p id="entThreshold">Пороговый балл: Нет данных</p>
+        <p id="entGrant">Гранты: Нет данных</p>
+        <p id="entCompetition">Конкурс: Нет данных</p>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="uni-card-block">
+        <h3>Стоимость обучения</h3>
+        <select id="programSelectTuition">
+          <option value="">Выберите направление</option>
+        </select>
+        <p id="tuitionValue">Стоимость: Нет данных</p>
+        <p id="tuitionGrant">Гранты: Нет данных</p>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="uni-card-block">
+        <h3>Проживание, питание и транспорт</h3>
+        <div class="living-switch" role="radiogroup" aria-label="Тип проживания">
+          <label class="living-switch-option">
+            <input type="radio" name="livingMode" id="livingModeDorm" value="dorm" checked>
+            <span>Общежитие</span>
+          </label>
+          <label class="living-switch-option">
+            <input type="radio" name="livingMode" id="livingModeApartment" value="apartment">
+            <span>Аренда</span>
+          </label>
+        </div>
+        <p id="dormYearly">Общежитие: Нет данных</p>
+        <p id="apartmentCost">Аренда: Нет данных</p>
+        <p id="foodCost">Питание: Нет данных</p>
+        <p id="transportCost">Транспорт: Нет данных</p>
+        <p id="leisureCost">Досуг: Нет данных</p>
+        <p id="livingTotal">Итого расходов/мес: Нет данных</p>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="uni-card-block">
+        <h3>Направления обучения</h3>
+        <input type="text" id="programSearch" placeholder="Поиск направления">
+        <ul id="programList"></ul>
+      </div>
+
+      <div class="uni-card-block">
+        <h3>Контакты и ссылки</h3>
+        <p id="uniType">Тип: Нет данных</p>
+        <p id="uniEmail">Email: Нет данных</p>
+        <p id="uniPhone">Телефон: Нет данных</p>
+        <p id="uniWebsite">Сайт: Нет данных</p>
+        <p id="uniProgramLink">Ссылка на программу: Нет данных</p>
+      </div>
+
+      <div class="uni-card-block">
+        <h3>Все поля из базы</h3>
+        <div id="dbRawData">Данные загружаются...</div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="uni-right">
+      <div class="calculator-block">
+        <h3>Ваши шансы</h3>
+
+        <input type="number" id="chanceEntInput" placeholder="Ваш балл ЕНТ">
+
+        <select id="chanceProgramSelect">
+          <option>Выберите предметы</option>
+        </select>
+
+        <p id="chanceResult">Шанс поступления: Нет данных</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STUDENT LIFE -->
+<section class="student-life">
+  <div class="container">
+    <h2>Студенческая жизнь</h2>
+    <p>
+      Клубы, мероприятия, стажировки, международные программы и активная студенческая среда.
+    </p>
+  </div>
+</section>
+
+<script src="js/universityPage.js"></script>
+</body>
+</html>
