@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Local environment – never commit real credentials
+.env
+
+# Python byte-code
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# Editor directories
+.idea/
+.vscode/

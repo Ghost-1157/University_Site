@@ -1,0 +1,40 @@
+# Render Infrastructure-as-Code
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Deploy steps:
+#  1. Push this repo to GitHub (already done).
+#  2. Go to https://dashboard.render.com/new/blueprint and connect the repo.
+#  3. Render reads this file and creates:
+#       • a managed PostgreSQL database  (university-db)
+#       • a Node web service             (university-site)
+#  4. After the first deploy, open the Shell tab of the web service and run
+#     your data-import script to populate the database.
+#  5. Share the generated .onrender.com URL with your friends.
+
+services:
+  - type: web
+    name: university-site
+    runtime: node
+    plan: free                  # upgrade any time in the dashboard
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: university-db
+          property: connectionString
+      # Optional: restrict CORS to this service's own URL
+      # - key: FRONTEND_ORIGIN
+      #   fromService:
+      #     name: university-site
+      #     type: web
+      #     property: host
+
+databases:
+  - name: university-db
+    plan: free                  # 1 GB storage, sufficient for university data
+    databaseName: university_db
+    user: university_user
